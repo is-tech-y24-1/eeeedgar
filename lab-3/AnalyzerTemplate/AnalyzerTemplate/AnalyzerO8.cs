@@ -48,13 +48,10 @@ namespace AnalyzerTemplate
         {
             const string methodIdentifier = "ToString";
             var invocation = (InvocationExpressionSyntax) context.Node;
+            Diagnostic diagnostic;
 
             var toStringPosition = invocation.Expression.ChildNodes().OfType<IdentifierNameSyntax>()
                 .TakeWhile(identifier => !identifier.Identifier.ValueText.Equals(methodIdentifier)).Count();
-
-            var toStringIdentifier =
-                invocation.Expression.ChildNodes().OfType<IdentifierNameSyntax>().ToList()[toStringPosition];
-
 
             if (toStringPosition == 0)
                 // todo invocation in a class declaration
@@ -65,26 +62,31 @@ namespace AnalyzerTemplate
 
             var objectType = context.SemanticModel.GetTypeInfo(objectIdentifier).Type;
 
-            var syntaxReference = objectType.DeclaringSyntaxReferences.FirstOrDefault();
+            while (objectType != null)
+            {
+                if (objectType.Name.ToLower().Contains("object"))
+                {
+                    diagnostic = Diagnostic.Create(Rule, invocation.GetLocation());
+                    context.ReportDiagnostic(diagnostic);
+                    return;
+                }
 
-            if (!(syntaxReference.GetSyntax(context.CancellationToken) is ClassDeclarationSyntax declaration))
-                return;
+                // get declaration
+                var syntaxReference = objectType.DeclaringSyntaxReferences.FirstOrDefault();
+                if (!(syntaxReference.GetSyntax(context.CancellationToken) is ClassDeclarationSyntax declaration))
+                    return;
 
-            if (declaration.ChildNodes().OfType<MethodDeclarationSyntax>()
-                .Any(m => m.Identifier.Text.Equals(methodIdentifier)))
-                return;
+                // check if 'ToString' is overriden
+                if (declaration.ChildNodes().OfType<MethodDeclarationSyntax>()
+                    .Any(m => m.Identifier.Text.Equals(methodIdentifier)))
+                    return;
+
+                objectType = objectType.BaseType;
+            }
 
 
-            var diagnostic = Diagnostic.Create(Rule, invocation.GetLocation());
+            diagnostic = Diagnostic.Create(Rule, invocation.GetLocation());
             context.ReportDiagnostic(diagnostic);
-
-            // todo check type's base types
-            // while (type != null)
-            // {
-            //     ...
-            //     type = type.BaseType;
-            // }
-            //
         }
     }
 }
