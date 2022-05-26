@@ -68,10 +68,10 @@ namespace AnalyzerTemplate
             var tree = await contextDocument.GetSyntaxTreeAsync(cancellationToken).ConfigureAwait(false);
             var root = await tree.GetRootAsync(cancellationToken) as CompilationUnitSyntax;
 
-            var lastChild = classDeclaration.ChildNodes().Last();
+            var lastChild = classDeclaration.ChildNodes().LastOrDefault();
 
             CompilationUnitSyntax newRoot;
-            if (lastChild == null)
+            if (lastChild is null)
             {
                 newRoot = root.ReplaceNode(classDeclaration,
                     GetClassDeclarationWithToStringOverride(classDeclaration.Identifier.Text));
