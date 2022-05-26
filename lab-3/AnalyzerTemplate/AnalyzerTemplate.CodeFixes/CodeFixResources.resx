@@ -124,4 +124,7 @@
   <data name="CodeFixO8Title" xml:space="preserve">
     <value>Generate 'ToString' override</value>
   </data>
+  <data name="CodeFixI7YieldTitle" xml:space="preserve">
+    <value>Use 'yield break'</value>
+  </data>
 </root>

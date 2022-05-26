@@ -77,5 +77,14 @@ namespace AnalyzerTemplate {
                 return ResourceManager.GetString("CodeFixO8Title", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Return empty collection.
+        /// </summary>
+        internal static string CodeFixI7YieldTitle {
+            get {
+                return ResourceManager.GetString("CodeFixI7YieldTitle", resourceCulture);
+            }
+        }
     }
 }
