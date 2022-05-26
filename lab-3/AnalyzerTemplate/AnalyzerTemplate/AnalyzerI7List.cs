@@ -62,7 +62,7 @@ namespace AnalyzerTemplate
                 return;
             
             if (!genericType.Identifier.ValueText.Equals("List")
-                && !genericType.Identifier.ValueText.Equals("ICollection"))
+                && !genericType.Identifier.ValueText.Equals("IEnumerable"))
                 return;
 
             var diagnostic = Diagnostic.Create(Rule, returnStatement.Expression.GetLocation());
