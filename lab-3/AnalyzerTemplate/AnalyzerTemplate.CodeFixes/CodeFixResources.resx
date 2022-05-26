@@ -121,4 +121,7 @@
     <value>Return empty collection</value>
     <comment>The title of the code fix.</comment>
   </data>
+  <data name="CodeFixO8Title" xml:space="preserve">
+    <value>Generate 'ToString' override</value>
+  </data>
 </root>
