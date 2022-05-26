@@ -53,6 +53,9 @@ namespace AnalyzerTemplate
             var toStringPosition = invocation.Expression.ChildNodes().OfType<IdentifierNameSyntax>()
                 .TakeWhile(identifier => !identifier.Identifier.ValueText.Equals(methodIdentifier)).Count();
 
+            var toStringIdentifier =
+                invocation.Expression.ChildNodes().OfType<IdentifierNameSyntax>().ToList()[toStringPosition];
+
             if (toStringPosition == 0)
                 // todo invocation in a class declaration
                 return;
@@ -66,7 +69,7 @@ namespace AnalyzerTemplate
             {
                 if (objectType.Name.ToLower().Contains("object"))
                 {
-                    diagnostic = Diagnostic.Create(Rule, invocation.GetLocation());
+                    diagnostic = Diagnostic.Create(Rule, toStringIdentifier.GetLocation());
                     context.ReportDiagnostic(diagnostic);
                     return;
                 }
@@ -85,7 +88,7 @@ namespace AnalyzerTemplate
             }
 
 
-            diagnostic = Diagnostic.Create(Rule, invocation.GetLocation());
+            diagnostic = Diagnostic.Create(Rule, toStringIdentifier.GetLocation());
             context.ReportDiagnostic(diagnostic);
         }
     }
