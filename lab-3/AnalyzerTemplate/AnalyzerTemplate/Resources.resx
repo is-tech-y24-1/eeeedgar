@@ -138,4 +138,13 @@
   <data name="AnalyzerO8Title" xml:space="preserve">
     <value>Calling a non-overridden method 'ToString()'</value>
   </data>
+  <data name="AnalyzerI7YieldDescription" xml:space="preserve">
+    <value>Avoid yield return null</value>
+  </data>
+  <data name="AnalyzerI7YieldMessageFormat" xml:space="preserve">
+    <value>Avoid yield return null</value>
+  </data>
+  <data name="AnalyzerI7YieldTitle" xml:space="preserve">
+    <value>Avoid yield return null</value>
+  </data>
 </root>
