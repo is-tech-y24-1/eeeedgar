@@ -86,5 +86,32 @@ namespace AnalyzerTemplate {
                 return ResourceManager.GetString("AnalyzerI7Title", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Method must returns a collection.
+        /// </summary>
+        internal static string AnalyzerO8Title {
+            get {
+                return ResourceManager.GetString("AnalyzerO8Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Method must returns a collection.
+        /// </summary>
+        internal static string AnalyzerO8MessageFormat {
+            get {
+                return ResourceManager.GetString("AnalyzerO8MessageFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Method must returns a collection.
+        /// </summary>
+        internal static string AnalyzerO8Description {
+            get {
+                return ResourceManager.GetString("AnalyzerO8Description", resourceCulture);
+            }
+        }
     }
 }

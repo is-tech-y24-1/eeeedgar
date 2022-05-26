@@ -129,4 +129,13 @@
     <value>Method must return a collection</value>
     <comment>The title of the diagnostic.</comment>
   </data>
+  <data name="AnalyzerO8Description" xml:space="preserve">
+    <value>Calling a non-overridden method 'ToString()'</value>
+  </data>
+  <data name="AnalyzerO8MessageFormat" xml:space="preserve">
+    <value>Calling a non-overridden method 'ToString()'</value>
+  </data>
+  <data name="AnalyzerO8Title" xml:space="preserve">
+    <value>Calling a non-overridden method 'ToString()'</value>
+  </data>
 </root>
