@@ -32,9 +32,9 @@ public class SolutionFindingExecutionContext : IExecutionContext
             .Select(_ => 
                 new BarrierCircle(
                     new Point(
-                        4 + Next / 5, 4 + Next / 5
+                        3 + Next / 2, 3 + Next / 2
                     ), 
-                    Next / 5
+                    Next / 3
                 )
             )
             .ToArray();

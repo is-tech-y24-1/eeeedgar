@@ -27,12 +27,10 @@ public class GeneticMath
     {
         double moveX, moveY;
         Point point;
-        var k = 1;
         do
         {
-            moveX = NextSigned * k;
-            moveY = NextSigned * k;
-            // k *= 2;
+            moveX = NextSigned;
+            moveY = NextSigned;
             point = new Point(moveX + trajectory.Result.X, moveY + trajectory.Result.Y);
         }
         while (
