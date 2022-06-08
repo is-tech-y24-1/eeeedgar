@@ -10,7 +10,8 @@ public class SolutionFindingExecutionContext : IExecutionContext
     private readonly Random _random;
     
     private readonly BarrierCircle[] _barrierCircles;
-    private Trajectory[] _trajectories;
+    // private Trajectory[] _trajectories;
+    private List<Trajectory> _trajectories;
     private GeneticMath _math;
     private int _iterationCounter;
     private readonly int _iterationLimit;
@@ -39,9 +40,11 @@ public class SolutionFindingExecutionContext : IExecutionContext
             )
             .ToArray();
         
-        _trajectories = Enumerable.Range(0, _pointCount)
-            .Select(_ => new Trajectory())
-            .ToArray();
+        _trajectories = new List<Trajectory>();
+        for (var i = 0; i < _pointCount; i++)
+        {
+            _trajectories.Add(new Trajectory());
+        }
         
         _math = new GeneticMath(_random, _barrierCircles, 0, _maximumValue, 0, _maximumValue);
     }
@@ -55,19 +58,18 @@ public class SolutionFindingExecutionContext : IExecutionContext
         if (++_iterationCounter > _iterationLimit)
             return Task.FromResult(IterationResult.SolutionCannotBeFound);
         
-        
-        _trajectories = _trajectories.OrderBy(t => _math.Fitness(t.Result)).ToArray();
+        _trajectories.Sort((x, y) => _math.Fitness(x.Result).CompareTo(_math.Fitness(y.Result)));
 
         if (_math.Fitness(_trajectories[0].Result) < _fitnessAccuracy)
             return Task.FromResult(IterationResult.SolutionFound);
 
         
-        for (var i = 0; i < _trajectories.Length * _partOfBadTrajectoriesToReplace; i++)
+        for (var i = 0; i < _trajectories.Count * _partOfBadTrajectoriesToReplace; i++)
         {
             _trajectories[^(i + 1)] = new Trajectory(_trajectories[i]);
         }
 
-        for (var i = 1; i < _trajectories.Length; i++)
+        for (var i = 1; i < _trajectories.Count; i++)
         {
             _math.Mutate(_trajectories[i]);
         }
