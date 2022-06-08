@@ -11,9 +11,10 @@ var partOfBadElementsToReplace = 0.1;
 var executionContext = new SolutionFindingExecutionContext(pointCount, maximumValue, circleCount, iterationLimit, fitnessAccuracy, partOfBadElementsToReplace);
 
 
-var result = IterationResult.IterationFinished;
-var iterationCounter = 0;
-while (result != IterationResult.SolutionFound && iterationCounter++ < iterationLimit)
+IterationResult result;
+do
+{
     result = await executionContext.ExecuteIterationAsync();
+} while (result == IterationResult.IterationFinished);
     
 Console.WriteLine(result);
