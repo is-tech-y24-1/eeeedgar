@@ -11,7 +11,68 @@
 Для этого помимо сущностей, представленных в шаблоне, была создана новая - траектория *(Trajectory)*.
 Она представляла из себя список векторов - перемещений точки на каждой итерации.
 
+```csharp
+namespace GeneticAlgo.Shared.Models;
+
+public class Trajectory
+{
+    private List<Point> _vectors;
+    private Point _result;
+
+    public Point Result => _result;
+
+    public Trajectory(Trajectory? trajectory = null)
+    {
+        if (trajectory is null)
+        {
+            _vectors = new List<Point>();
+            _result = new Point(0, 0);
+        }
+        else
+        {
+            _vectors = trajectory._vectors.ToList();
+            _result = trajectory._result;
+        }
+        
+    }
+
+    public void AddVector(Point point)
+    {
+        _vectors.Add(point);
+        _result.X += point.X;
+        _result.Y += point.Y;
+    }
+}
+```
+
 В новом решении каждое перемещение для каждой из точек считается случайным образом с условием, что точка не выйдет за границы холста и не попадет в препятствие.
+
+```csharp
+public Task<IterationResult> ExecuteIterationAsync()
+{
+    if (++_iterationCounter > _iterationLimit)
+        return Task.FromResult(IterationResult.SolutionCannotBeFound);
+        
+        
+    _trajectories = _trajectories.OrderBy(t => _math.Fitness(t.Result)).ToArray();
+
+    if (_math.Fitness(_trajectories[0].Result) < _fitnessAccuracy)
+        return Task.FromResult(IterationResult.SolutionFound);
+
+        
+    for (var i = 0; i < _trajectories.Length * _partOfBadTrajectoriesToReplace; i++)
+    {
+        _trajectories[^(i + 1)] = new Trajectory(_trajectories[i]);
+    }
+
+    for (var i = 1; i < _trajectories.Length; i++)
+    {
+        _math.Mutate(_trajectories[i]);
+    }
+
+    return Task.FromResult(IterationResult.IterationFinished);
+ }
+```
 
 Обнаружив, что отрисовка круглых препятствий не зависит от их радиуса, исправим это. Теперь фактический радиус круга соответствует толщине его обводки.
 
@@ -114,6 +175,45 @@ public class Trajectory
         _points[_pointCount] = point;
         _pointCount++;
     }
+}
+```
+
+В итоге имеем код для итерации:
+
+```csharp
+public Task<IterationResult> ExecuteIterationAsync()
+{
+    // check iteration limit
+    if (++_iterationCounter > _iterationLimit)
+        return Task.FromResult(IterationResult.SolutionCannotBeFound);
+
+    // set fitness
+    foreach (var trajectory in _trajectories)
+    {
+        trajectory.Fitness = _math.Fitness(trajectory.Result);
+    }
+
+
+    // get best element
+    _trajectories.Sort((x, y) => x.Fitness.CompareTo(y.Fitness));
+    if (_trajectories[0].Fitness < _fitnessAccuracy)
+        return Task.FromResult(IterationResult.SolutionFound);
+        
+        
+    // replace bad elements with good
+    for (var i = 0; i < _trajectories.Count * _partOfBadTrajectoriesToReplace; i++)
+    {
+        for (var j = 0; j < _trajectories[i].Length; j++)
+            _trajectories[^(i + 1)].Points[j] = _trajectories[i].Points[j];
+    }
+        
+    // mutate
+    for (var i = 1; i < _trajectories.Count; i++)
+    {
+        _math.Mutate(_trajectories[i]);
+    }
+    
+    return Task.FromResult(IterationResult.IterationFinished);
 }
 ```
 
