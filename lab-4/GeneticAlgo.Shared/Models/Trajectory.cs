@@ -2,7 +2,7 @@
 
 public class Trajectory
 {
-    private List<Point> _vectors;
+    private readonly List<Point> _vectors;
     private Point _result;
 
     public Point Result => _result;
