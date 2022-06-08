@@ -36,6 +36,9 @@ public class MainWindowViewModel : AvaloniaObject
         {
             MarkerFill = OxyColors.Red,
             MarkerType = MarkerType.Circle,
+            MarkerStroke = OxyColors.Coral,
+            MarkerStrokeThickness = 50,
+            MarkerSize = 7,
         };
 
         ScatterModel = new PlotModel
