@@ -39,7 +39,7 @@ public class SolutionFindingExecutionContext : IExecutionContext
             )
             .ToArray();
         
-        _trajectories = new List<Trajectory>();
+        _trajectories = new List<Trajectory>(_pointCount);
         for (var i = 0; i < _pointCount; i++)
         {
             _trajectories.Add(new Trajectory(_iterationLimit));
@@ -67,7 +67,7 @@ public class SolutionFindingExecutionContext : IExecutionContext
 
         // get best element
         _trajectories.Sort((x, y) => x.Fitness.CompareTo(y.Fitness));
-        if (_math.Fitness(_trajectories[0].Result) < _fitnessAccuracy)
+        if (_trajectories[0].Fitness < _fitnessAccuracy)
             return Task.FromResult(IterationResult.SolutionFound);
         
         
@@ -76,8 +76,6 @@ public class SolutionFindingExecutionContext : IExecutionContext
         {
             for (var j = 0; j < _trajectories[i].Length; j++)
                 _trajectories[^(i + 1)].Points[j] = _trajectories[i].Points[j];
-            
-            // _trajectories[^(i + 1)].ChangeResult(_trajectories[i].Result);
         }
         
         // mutate
