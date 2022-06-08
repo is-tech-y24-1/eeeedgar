@@ -37,12 +37,12 @@ public class GeneticMath
             !IsGoodPoint(point)
         );
 
-        trajectory.AddVector(new Point(moveX, moveY));
+        trajectory.AddVector(point);
     }
 
     public double Fitness(Point point)
     {
-        return Math.Sqrt(Math.Pow(10 - point.X, 2) + Math.Pow(10 - point.Y, 2));
+        return Math.Sqrt(Math.Pow(_rightBarrier - point.X, 2) + Math.Pow(_topBarrier - point.Y, 2));
     }
 
     public bool IsInCanvas(Point point)

@@ -10,7 +10,6 @@ public class SolutionFindingExecutionContext : IExecutionContext
     private readonly Random _random;
     
     private readonly BarrierCircle[] _barrierCircles;
-    // private Trajectory[] _trajectories;
     private List<Trajectory> _trajectories;
     private GeneticMath _math;
     private int _iterationCounter;
@@ -55,25 +54,36 @@ public class SolutionFindingExecutionContext : IExecutionContext
 
     public Task<IterationResult> ExecuteIterationAsync()
     {
+        // check iteration limit
         if (++_iterationCounter > _iterationLimit)
             return Task.FromResult(IterationResult.SolutionCannotBeFound);
-        
-        _trajectories.Sort((x, y) => _math.Fitness(x.Result).CompareTo(_math.Fitness(y.Result)));
 
+        // set fitness
+        foreach (var trajectory in _trajectories)
+        {
+            trajectory.Fitness = _math.Fitness(trajectory.Result);
+        }
+
+
+        // get best element
+        _trajectories.Sort((x, y) => x.Fitness.CompareTo(y.Fitness));
         if (_math.Fitness(_trajectories[0].Result) < _fitnessAccuracy)
             return Task.FromResult(IterationResult.SolutionFound);
-
         
+        
+        // replace bad elements with good
         for (var i = 0; i < _trajectories.Count * _partOfBadTrajectoriesToReplace; i++)
         {
             _trajectories[^(i + 1)] = new Trajectory(_trajectories[i]);
         }
-
+        
+        // mutate
         for (var i = 1; i < _trajectories.Count; i++)
         {
             _math.Mutate(_trajectories[i]);
         }
 
+        
         return Task.FromResult(IterationResult.IterationFinished);
     }
 

@@ -2,30 +2,28 @@
 
 public class Trajectory
 {
-    private readonly List<Point> _vectors;
-    private Point _result;
+    private readonly List<Point> _points;
+    private double _fitness;
 
-    public Point Result => _result;
+    public Point Result => _points.Last();
+    public double Fitness { get; set; }
 
     public Trajectory(Trajectory? trajectory = null)
     {
         if (trajectory is null)
         {
-            _vectors = new List<Point>();
-            _result = new Point(0, 0);
+            _points = new List<Point>();
+            _points.Add(new Point(0, 0));
         }
         else
         {
-            _vectors = trajectory._vectors.ToList();
-            _result = trajectory._result;
+            _points = trajectory._points.ToList();
         }
         
     }
 
     public void AddVector(Point point)
     {
-        _vectors.Add(point);
-        _result.X += point.X;
-        _result.Y += point.Y;
+        _points.Add(point);
     }
 }
