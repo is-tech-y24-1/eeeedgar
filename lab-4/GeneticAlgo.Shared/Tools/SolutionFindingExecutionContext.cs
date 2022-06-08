@@ -43,7 +43,7 @@ public class SolutionFindingExecutionContext : IExecutionContext
             .Select(_ => new Trajectory())
             .ToArray();
         
-        _math = new GeneticMath(_random, _barrierCircles, 0, 10, 0, 10);
+        _math = new GeneticMath(_random, _barrierCircles, 0, _maximumValue, 0, _maximumValue);
     }
     
     private double Next => _random.NextDouble() * _random.Next(_maximumValue);
