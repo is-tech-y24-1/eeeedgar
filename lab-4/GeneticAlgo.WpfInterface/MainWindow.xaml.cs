@@ -32,8 +32,8 @@ namespace GeneticAlgo.WpfInterface
             InitializeComponent();
 
             Logger.Init();
-
-            _executionContext = new DummyExecutionContext(100, 10, 3);
+            
+            _executionContext = new SolutionFindingExecutionContext(100, 10, 3, 1000, 0.1, 0.2);
             _configuration = new ExecutionConfiguration(IterationInterval, 10, 0);
 
             InitPlots();

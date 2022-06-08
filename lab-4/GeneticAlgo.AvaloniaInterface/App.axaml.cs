@@ -25,7 +25,7 @@ namespace GeneticAlgo.AvaloniaInterface
 
                 var collection = new ServiceCollection();
                 collection.AddSingleton<MainWindowViewModel>();
-                collection.AddSingleton<IExecutionContext>(_ => new DummyExecutionContext(100, maximum, 3));
+                collection.AddSingleton<IExecutionContext>(_ => new SolutionFindingExecutionContext(100, maximum, 3, 1000, 0.1, 0.2));
                 collection.AddSingleton(new ExecutionConfiguration(TimeSpan.FromMilliseconds(1000), maximum, 0));
 
                 var provider = collection.BuildServiceProvider();
