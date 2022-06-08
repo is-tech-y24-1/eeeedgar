@@ -28,9 +28,4 @@ public class Trajectory
         _result.X += point.X;
         _result.Y += point.Y;
     }
-
-    public void Dispose()
-    {
-        _vectors.Clear();
-    }
 }
