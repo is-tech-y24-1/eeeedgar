@@ -42,7 +42,7 @@ public class SolutionFindingExecutionContext : IExecutionContext
         _trajectories = new List<Trajectory>();
         for (var i = 0; i < _pointCount; i++)
         {
-            _trajectories.Add(new Trajectory());
+            _trajectories.Add(new Trajectory(_iterationLimit));
         }
         
         _math = new GeneticMath(_random, _barrierCircles, 0, _maximumValue, 0, _maximumValue);
@@ -74,7 +74,10 @@ public class SolutionFindingExecutionContext : IExecutionContext
         // replace bad elements with good
         for (var i = 0; i < _trajectories.Count * _partOfBadTrajectoriesToReplace; i++)
         {
-            _trajectories[^(i + 1)] = new Trajectory(_trajectories[i]);
+            for (var j = 0; j < _trajectories[i].Length; j++)
+                _trajectories[^(i + 1)].Points[j] = _trajectories[i].Points[j];
+            
+            // _trajectories[^(i + 1)].ChangeResult(_trajectories[i].Result);
         }
         
         // mutate

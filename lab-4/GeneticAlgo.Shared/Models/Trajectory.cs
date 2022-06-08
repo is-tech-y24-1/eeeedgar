@@ -2,28 +2,26 @@
 
 public class Trajectory
 {
-    private readonly List<Point> _points;
-    private double _fitness;
+    private readonly Point[] _points;
+    private int _pointCount;
 
-    public Point Result => _points.Last();
+    public Point Result => _points[_pointCount - 1];
     public double Fitness { get; set; }
 
-    public Trajectory(Trajectory? trajectory = null)
+    public int Length => _pointCount;
+
+    public Point[] Points => _points;
+
+    public Trajectory(int maxLength)
     {
-        if (trajectory is null)
-        {
-            _points = new List<Point>();
-            _points.Add(new Point(0, 0));
-        }
-        else
-        {
-            _points = trajectory._points.ToList();
-        }
-        
+        _points = new Point[maxLength];
+        _points[0] = new Point(0, 0);
+        _pointCount = 1;
     }
 
-    public void AddVector(Point point)
+    public void AddPoint(Point point)
     {
-        _points.Add(point);
+        _points[_pointCount] = point;
+        _pointCount++;
     }
 }

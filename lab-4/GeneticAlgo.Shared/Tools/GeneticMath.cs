@@ -37,7 +37,7 @@ public class GeneticMath
             !IsGoodPoint(point)
         );
 
-        trajectory.AddVector(point);
+        trajectory.AddPoint(point);
     }
 
     public double Fitness(Point point)
