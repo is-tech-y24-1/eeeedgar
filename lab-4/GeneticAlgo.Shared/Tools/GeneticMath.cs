@@ -10,8 +10,9 @@ public class GeneticMath
     private readonly double _rightBarrier;
     private readonly double _bottomBarrier;
     private readonly double _topBarrier;
+    private readonly double _accuracy;
 
-    public GeneticMath(Random random, BarrierCircle[] barrierCircles, double leftBarrier, double rightBarrier, double bottomBarrier, double topBarrier)
+    public GeneticMath(Random random, BarrierCircle[] barrierCircles, double leftBarrier, double rightBarrier, double bottomBarrier, double topBarrier, double accuracy)
     {
         _random = random;
         _barrierCircles = barrierCircles;
@@ -19,9 +20,10 @@ public class GeneticMath
         _rightBarrier = rightBarrier;
         _bottomBarrier = bottomBarrier;
         _topBarrier = topBarrier;
+        _accuracy = accuracy;
     }
 
-    public double NextSigned => (_random.NextDouble() * 2 - 1);
+    public double NextSigned => (_random.NextDouble() * 2 - 1) * _accuracy * 10;
 
     public void Mutate(Trajectory trajectory)
     {

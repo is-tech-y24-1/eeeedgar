@@ -45,12 +45,20 @@ public class SolutionFindingExecutionContext : IExecutionContext
             _trajectories.Add(new Trajectory(_iterationLimit));
         }
         
-        _math = new GeneticMath(_random, _barrierCircles, 0, _maximumValue, 0, _maximumValue);
+        _math = new GeneticMath(_random, _barrierCircles, 0, _maximumValue, 0, _maximumValue, fitnessAccuracy);
     }
     
     private double Next => _random.NextDouble() * _random.Next(_maximumValue);
 
-    public void Reset() { }
+    public void Reset()
+    {
+        foreach (var trajectory in _trajectories)
+        {
+            trajectory.Points[0] = new Point(0, 0);
+            trajectory.Length = 1;
+            trajectory.Fitness = _math.Fitness(trajectory.Result);
+        }
+    }
 
     public Task<IterationResult> ExecuteIterationAsync()
     {
