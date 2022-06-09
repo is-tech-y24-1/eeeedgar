@@ -341,6 +341,8 @@ namespace CSharpBenchmarking
 | DefaultSort | 100000 |     5,903.794 us |    301.1049 us |    878.3372 us |     5,560.400 us |
 ```
 
+Сортировка по-умолчанию оказывается намного быстрее. 
+
 Benchmarking на Java:
 
 ```java
@@ -412,6 +414,8 @@ Benchmarking.defaultSort     10000  avgt    5   0.006 ±  0.001  ms/op
 Benchmarking.defaultSort    100000  avgt    5   0.093 ±  0.009  ms/op
 ```
 
+Сортировка по-умолчанию тоже быстрее остальных.
+Реализации быстрой сортировки на Java единственной не хватило памяти.
 
 
 ## 5. Анализ кода бэкапов с помощью инструмента dotTrace
