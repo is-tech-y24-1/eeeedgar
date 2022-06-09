@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneticAlgo.UIShared", "Gen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneticAlgo.Runner", "GeneticAlgo.Runner\GeneticAlgo.Runner.csproj", "{1E976CF3-E10F-4881-8038-038BBD2AB9B2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneticAlgo.Benchmarking", "GeneticAlgo.Benchmarking\GeneticAlgo.Benchmarking.csproj", "{66637A33-2970-4AB8-9459-53FADF694D78}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{1E976CF3-E10F-4881-8038-038BBD2AB9B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E976CF3-E10F-4881-8038-038BBD2AB9B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E976CF3-E10F-4881-8038-038BBD2AB9B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66637A33-2970-4AB8-9459-53FADF694D78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66637A33-2970-4AB8-9459-53FADF694D78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66637A33-2970-4AB8-9459-53FADF694D78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66637A33-2970-4AB8-9459-53FADF694D78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
