@@ -151,6 +151,32 @@ public class ScalaClass {
 }
 ```
 
+### F# и C#
+
+Опишем функцию в проекте на F#:
+
+```f#
+module Functions =
+    let add num1 num2 = num1 + num2
+```
+
+Сделаем референс в C# проекте на F# проект.
+Мы можем вызывать код:
+
+```c#
+namespace FSharpToCSharp;
+
+class Program
+{
+    private static void Main()
+    {
+        Console.WriteLine(global::Program.Functions.add(41, 1));
+    }
+}
+```
+
+F# и C# не могут жить в одном проекте. Проект определяет язык.
+
 ## 3. Создание и использование пакетов на C# и Java
 
 Код алгоритма библиотеки C#:
