@@ -3,7 +3,7 @@ package com.eeee;
 public class Main {
 
     static {
-        System.load("$PROJECT_ROOT/bin/Library.so");
+        System.load("$PROJECT_ROOT/bin/Library.dll");
     }
 
     public static void main(String[] args) {
